@@ -5,6 +5,7 @@ import {
     isElementNode,
     isHTMLElementNode,
     isIFrameElement,
+    isImageElement,
     isScriptElement,
     isSelectElement,
     isStyleElement,
@@ -115,7 +116,7 @@ export class DocumentCloner {
         return iframeLoad;
     }
 
-    createElementClone(node: HTMLElement): HTMLElement {
+    createElementClone<T extends HTMLElement | SVGElement>(node: T): HTMLElement | SVGElement {
         if (isCanvasElement(node)) {
             return this.createCanvasClone(node);
         }
@@ -128,7 +129,14 @@ export class DocumentCloner {
             return this.createStyleClone(node);
         }
 
-        return node.cloneNode(false) as HTMLElement;
+        const clone = node.cloneNode(false) as T;
+        // @ts-ignore
+        if (isImageElement(clone) && clone.loading === 'lazy') {
+            // @ts-ignore
+            clone.loading = 'eager';
+        }
+
+        return clone;
     }
 
     createStyleClone(node: HTMLStyleElement): HTMLStyleElement {
@@ -257,14 +265,14 @@ export class DocumentCloner {
 
         const window = node.ownerDocument.defaultView;
 
-        if (isHTMLElementNode(node) && window) {
+        if (window && isElementNode(node) && (isHTMLElementNode(node) || isSVGElementNode(node))) {
             const clone = this.createElementClone(node);
 
             const style = window.getComputedStyle(node);
             const styleBefore = window.getComputedStyle(node, ':before');
             const styleAfter = window.getComputedStyle(node, ':after');
 
-            if (this.referenceElement === node) {
+            if (this.referenceElement === node && isHTMLElementNode(clone)) {
                 this.clonedReferenceElement = clone;
             }
             if (isBodyElement(clone)) {
@@ -298,7 +306,7 @@ export class DocumentCloner {
 
             this.counters.pop(counters);
 
-            if (style && this.options.copyStyles && !isIFrameElement(node)) {
+            if (style && (this.options.copyStyles || isSVGElementNode(node)) && !isIFrameElement(node)) {
                 copyCSSStyles(style, clone);
             }
 
@@ -478,7 +486,7 @@ const iframeLoader = (iframe: HTMLIFrameElement): Promise<HTMLIFrameElement> => 
     });
 };
 
-export const copyCSSStyles = (style: CSSStyleDeclaration, target: HTMLElement): HTMLElement => {
+export const copyCSSStyles = <T extends HTMLElement | SVGElement>(style: CSSStyleDeclaration, target: T): T => {
     // Edge does not provide value for cssText
     for (let i = style.length - 1; i >= 0; i--) {
         const property = style.item(i);

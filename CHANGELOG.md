@@ -1,6 +1,31 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+# [1.0.0-rc.7](https://github.com/niklasvh/html2canvas/compare/v1.0.0-rc.6...v1.0.0-rc.7) (2020-08-09)
+
+
+### fix
+
+* concatenate contiguous font-family tokens (#2219) ([bacfadf](https://github.com/niklasvh/html2canvas/commit/bacfadff96d907d9e8ab4ef515ca6487de9e51fc)), closes [#2219](https://github.com/niklasvh/html2canvas/issues/2219)
+* external styles on svg elements (#2320) ([1514220](https://github.com/niklasvh/html2canvas/commit/1514220812cfb22d64d0974558d9c14fe90a41d3)), closes [#2320](https://github.com/niklasvh/html2canvas/issues/2320)
+
+
+
+# [1.0.0-rc.6](https://github.com/niklasvh/html2canvas/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2020-08-08)
+
+
+### ci
+
+* Azure Pipelines: upgrade from macOS 10.13 -> 10.14 (#2204) ([c366e87](https://github.com/niklasvh/html2canvas/commit/c366e8790d346ea981b24b7425aef6bf6d7ebcec)), closes [#2204](https://github.com/niklasvh/html2canvas/issues/2204)
+* build docs (#2305) ([51de347](https://github.com/niklasvh/html2canvas/commit/51de34787ad8aba3f213800be45e878cddb064e9)), closes [#2305](https://github.com/niklasvh/html2canvas/issues/2305)
+
+### fix
+
+* #1868 Clone node, Setting className for SVG element raises error (#2079) ([f139b51](https://github.com/niklasvh/html2canvas/commit/f139b513c5cf9673dc727fd47124e0d779891e3a)), closes [#1868](https://github.com/niklasvh/html2canvas/issues/1868) [#2079](https://github.com/niklasvh/html2canvas/issues/2079) [#1868](https://github.com/niklasvh/html2canvas/issues/1868)
+* image loading="lazy" fix #2312 (#2314) ([f23e6f6](https://github.com/niklasvh/html2canvas/commit/f23e6f6f2690dc0dbd02621c3bb81025904e6647)), closes [#2312](https://github.com/niklasvh/html2canvas/issues/2312) [#2314](https://github.com/niklasvh/html2canvas/issues/2314)
+
+
 
 # [1.0.0-rc.5](https://github.com/niklasvh/html2canvas/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2019-09-27)
 
